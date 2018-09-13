@@ -65,7 +65,7 @@ if [ -z "$WERCKER_PAGERDUTY_NOTIFIER_CLIENT" ]; then
 fi
 
 # details (TODO)
-json=$json"\"details\: {},"
+json=$json"\"details\": {},"
 
 # client_url
 json=$json"\"client_url\": \"$WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL\","

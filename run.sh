@@ -1,5 +1,12 @@
 #!/bin/bash
-source build-esen.sh
+
+function fail() {
+    _message "failed: ${1}" $ERROR_COLOR
+    if [ -n "$WERCKER_REPORT_MESSAGE_FILE" ]; then
+      echo "${1}" > "$WERCKER_REPORT_MESSAGE_FILE"
+    fi
+    exit 1
+}
 
 # If url is not specified then use the default
 if [ -z "$WERCKER_PAGERDUTY_NOTIFIER_URL" ]; then
@@ -43,7 +50,7 @@ json="{"
 json=$json"\"service_key\": \"$WERCKER_PAGERDUTY_NOTIFIER_SERVICE_KEY\","
 
 # event_type
-json=$json"\"service_key\": \"$WERCKER_PAGERDUTY_NOTIFIER_EVENT_TYPE\","
+json=$json"\"event_type\": \"$WERCKER_PAGERDUTY_NOTIFIER_EVENT_TYPE\","
 
 # description
 json=$json"\"description\": \"$MESSAGE\","

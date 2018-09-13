@@ -1,5 +1,5 @@
 name: pagerduty-notifier
-version: 1.0.5
+version: 1.0.6
 summary: Send an event to PagerDuty.
 tags:
   - notification
@@ -19,10 +19,10 @@ properties:
 - name: branch
   type: string
   required: false
-# The following properties are defined at https://v2.developer.pagerduty.com/docs/trigger-events
 - name: service_key
   type: string
   required: true
+# if set, description is prepended to the event message.
 - name: description
   type: string
   required: false

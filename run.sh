@@ -30,6 +30,7 @@ if [ -z "$WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL" ]; then
     export WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL=$WERCKER_DEPLOY_URL
   else
     export WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL=$WERCKER_BUILD_URL
+  fi
 fi
 
 # check if this event is a build or deploy
@@ -71,10 +72,6 @@ json=$json"\"client_url\": \"$WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL\","
 
 # TODO details
 # TODO contexts
-
-# Just for now, dump the JSON
-echo $json
-
 # skip if not interested in passed builds or deploys
 if [ "$WERCKER_PAGERDUTY_NOTIFIER_NOTIFY_ON" = "failed" ]; then
 	if [ "$WERCKER_RESULT" = "passed" ]; then
@@ -88,6 +85,8 @@ if [ -n "$WERCKER_PAGERDUTY_NOTIFIER_BRANCH" ]; then
         return 0
     fi
 fi
+# Just for now, dump the JSON
+echo $json
 
 # Just for now, return
 return 0

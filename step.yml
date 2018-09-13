@@ -1,5 +1,5 @@
 name: pagerduty-notifier
-version: 1.0.7
+version: 1.0.8
 summary: Send an event to PagerDuty.
 tags:
   - notification
@@ -26,9 +26,6 @@ properties:
 - name: description
   type: string
   required: false
-- name: details
-  type: string
-  required: false
 - name: client
   type: string
   required: false
@@ -36,6 +33,3 @@ properties:
 - name: client_url
   type: string
   required: false
-- name: contexts
-  type: string
-  required: false  

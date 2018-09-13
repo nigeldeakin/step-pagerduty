@@ -39,7 +39,7 @@ fi
 export MESSAGE="$ACTION for $WERCKER_APPLICATION_NAME by $WERCKER_STARTED_BY has $WERCKER_RESULT on branch $WERCKER_GIT_BRANCH"
 
 if [ -n "$WERCKER_PAGERDUTY_NOTIFIER_DESCRIPTION" ]; then
-  export MESSAGE="$WERCKER_PAGERDUTY_NOTIFIER_DESCRIPTION.$MESSAGE"
+  export MESSAGE="$WERCKER_PAGERDUTY_NOTIFIER_DESCRIPTION. $MESSAGE"
 fi
 
 if [ "$WERCKER_RESULT" = "failed" ]; then
@@ -64,12 +64,16 @@ if [ -z "$WERCKER_PAGERDUTY_NOTIFIER_CLIENT" ]; then
   json=$json"\"client\": \"$WERCKER_PAGERDUTY_NOTIFIER_CLIENT\","
 fi
 
-json=$json"\"client_url\": \"$WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL\""
+# details (TODO)
+json=$json"\"details\: {},"
+
+# client_url
+json=$json"\"client_url\": \"$WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL\","
+
+# contexts (TODO)
+json=$json"\"contexts\: []"
 
 json=$json"}"
-
-# TODO details
-# TODO contexts
 
 # skip if not interested in passed builds or deploys
 if [ "$WERCKER_PAGERDUTY_NOTIFIER_NOTIFY_ON" = "failed" ]; then

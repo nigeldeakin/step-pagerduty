@@ -91,6 +91,8 @@ if [ -n "$WERCKER_PAGERDUTY_NOTIFIER_BRANCH" ]; then
     fi
 fi
 
+echo $json
+
 # post the event to pagerduty
 STATUS=$(curl -d "$json" -s --output "$WERCKER_STEP_TEMP"/result.txt -w "%{http_code}" $WERCKER_PAGERDUTY_NOTIFIER_URL)
 cat "$WERCKER_STEP_TEMP/result.txt"

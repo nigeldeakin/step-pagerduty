@@ -6,7 +6,7 @@ tags:
   - webhook
   - pagerduty
 properties:
-# If set to failed, this step will only send the event if the pipeline failed.
+# If set to failed, this step will only send an event if the pipeline failed.
 - name: notify_on
   type: string
   required: false
@@ -15,7 +15,7 @@ properties:
   type: string
   required: false
   default: https://events.pagerduty.com/generic/2010-04-15/create_event.json
-# If set to the name of a branch, this step will only send a notification for runs on that branch
+# If set to the name of a branch, this step will only send an event for runs on that branch
 - name: branch
   type: string
   required: false

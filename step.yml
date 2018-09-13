@@ -1,0 +1,43 @@
+name: pagerduty-notifier
+version: 1.0.0
+summary: Send an event to PagerDuty.
+tags:
+  - notification
+  - webhook
+  - pagerduty
+properties:
+# If set to failed, this step will only send the event if the pipeline failed.
+- name: notify_on
+  type: string
+  required: false
+# URL to send the event to. 
+- name: url
+  type: string
+  required: false
+  default: https://events.pagerduty.com/generic/2010-04-15/create_event.json
+# The following properties are defined at https://v2.developer.pagerduty.com/docs/trigger-events
+- name: service_key
+  type: string
+  required: true
+- name: event_type
+  type: string
+  required: true
+- name: incident_key
+  type: string
+  required: false
+- name: description
+  type: string
+  required: true
+- name: details
+  type: string
+  required: false
+- name: client
+  type: string
+  required: false
+  default: pagerduty-notifier
+- name: client_url
+  type: string
+  required: false
+- name: contexts
+  type: string
+  required: false  

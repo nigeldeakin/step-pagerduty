@@ -71,7 +71,7 @@ json=$json"\"details\: {},"
 json=$json"\"client_url\": \"$WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL\","
 
 # contexts (TODO)
-json=$json"\"contexts\: []"
+json=$json"\"contexts\": []"
 
 json=$json"}"
 

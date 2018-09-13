@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function fail() {
-    _message "failed: ${1}" $ERROR_COLOR
+    echo "failed: ${1}" 
     if [ -n "$WERCKER_REPORT_MESSAGE_FILE" ]; then
       echo "${1}" > "$WERCKER_REPORT_MESSAGE_FILE"
     fi

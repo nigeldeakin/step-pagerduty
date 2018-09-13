@@ -65,17 +65,17 @@ if [ -z "$WERCKER_PAGERDUTY_NOTIFIER_CLIENT" ]; then
 fi
 
 # details (TODO)
-json=$json"\"details\": {},"
+#json=$json"\"details\": {},"
 
 # client_url
 json=$json"\"client_url\": \"$WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL\","
 
 # contexts (TODO)
-json=$json"\"contexts\":[]"
+#json=$json"\"contexts\":[]"
 
 json=$json"}"
 
-# skip if not interested in passed builds or deploys
+# skip if the pipeline succeeded and we are only interested in failures
 if [ "$WERCKER_PAGERDUTY_NOTIFIER_NOTIFY_ON" = "failed" ]; then
 	if [ "$WERCKER_RESULT" != "failed" ]; then
     echo Doing nothing because pipeline has not failed. 
@@ -91,14 +91,19 @@ if [ -n "$WERCKER_PAGERDUTY_NOTIFIER_BRANCH" ]; then
     fi
 fi
 
-# Just for now, dump the JSON
-echo $json
-
 # post the event to pagerduty
-RESULT=$(curl -d "payload=$json" -s "$WERCKER_PAGERDUTY_NOTIFIER_URL" --output "$WERCKER_STEP_TEMP"/result.txt -w "%{http_code}")
+STATUS=$(curl -d "$json" -s --output "$WERCKER_STEP_TEMP"/result.txt -w "%{http_code}" $WERCKER_PAGERDUTY_NOTIFIER_URL)
 cat "$WERCKER_STEP_TEMP/result.txt"
 
-if [ "$RESULT" != "200" ]; then
-  fail "Sending alert to PagerDuty FAILED."
+if [ "$STATUS" = "400" ]; then
+  fail "Sending event to PagerDuty FAILED: Invalid event"
+fi
+
+if [ "$STATUS" = "403" ]; then
+  fail "Sending event to PagerDuty FAILED: Rate limited."
+fi
+
+if [ "$STATUS" != "200" ]; then
+  fail "Sending event to PagerDuty FAILED: Status returned is $STATUS"
 fi
 

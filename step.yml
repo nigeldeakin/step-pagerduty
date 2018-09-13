@@ -15,19 +15,17 @@ properties:
   type: string
   required: false
   default: https://events.pagerduty.com/generic/2010-04-15/create_event.json
+# If set to the name of a branch, this step will only send a notification for runs on that branch
+- name: branch
+  type: string
+  required: false
 # The following properties are defined at https://v2.developer.pagerduty.com/docs/trigger-events
 - name: service_key
   type: string
   required: true
-- name: event_type
-  type: string
-  required: true
-- name: incident_key
-  type: string
-  required: false
 - name: description
   type: string
-  required: true
+  required: false
 - name: details
   type: string
   required: false

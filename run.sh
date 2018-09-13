@@ -24,14 +24,22 @@ echo Using service_key $WERCKER_PAGERDUTY_NOTIFIER_SERVICE_KEY
 export WERCKER_PAGERDUTY_NOTIFIER_EVENT_TYPE="trigger"
 echo Using event_type $WERCKER_PAGERDUTY_NOTIFIER_EVENT_TYPE
 
+# client_url
+if [ -z "$WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL" ]; then
+  if [ -n "$DEPLOY" ]; then
+    export WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL=$WERCKER_DEPLOY_URL
+  else
+    export WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL=$WERCKER_BUILD_URL
+fi
+
 # check if this event is a build or deploy
 if [ -n "$DEPLOY" ]; then
   # its a deploy!
-  export ACTION="deploy ($WERCKER_DEPLOYTARGET_NAME)"
+  export ACTION="pipeline ($WERCKER_DEPLOYTARGET_NAME)"
   export ACTION_URL=$WERCKER_DEPLOY_URL
 else
   # its a build!
-  export ACTION="build"
+  export ACTION="build" # we can't find the actual pipeline name 
   export ACTION_URL=$WERCKER_BUILD_URL
 fi
 
@@ -59,9 +67,7 @@ if [ -z "$WERCKER_PAGERDUTY_NOTIFIER_CLIENT" ]; then
   json=$json"\"client\": \"$WERCKER_PAGERDUTY_NOTIFIER_CLIENT\","
 fi
 
-if [ -z "$WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL" ]; then
-  json=$json"\"client_url\": \"$WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL\","
-fi
+json=$json"\"client_url\": \"$WERCKER_PAGERDUTY_NOTIFIER_CLIENT_URL\","
 
 # TODO details
 # TODO contexts

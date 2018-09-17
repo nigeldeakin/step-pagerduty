@@ -1,56 +1,32 @@
 # step-pagerduty
 
-A pagerduty notifier written in `bash` and `curl`. Make sure you create a Slack
-webhook first (see the Slack integrations page to set one up).
-
-[![wercker status](https://app.wercker.com/status/94f767fe85199d1f7f2dd064f36802bb/s "wercker status")](https://app.wercker.com/project/bykey/94f767fe85199d1f7f2dd064f36802bb)
+A pagerduty notifier written in `bash` and `curl`.
+It is intended to be used in an `after-step` and sends a notification of whether the pipeline failed or (optionally) succeeded.
 
 # Options
 
-- `url` The Slack webhook url
-- `username` Username of the notification message
-- `channel` (optional) The Slack channel (excluding `#`)
-- `icon_url` (optional) A url that specifies an image to use as the avatar icon in Slack
-- `notify_on` (optional) If set to `failed`, it will only notify on failed
-builds or deploys.
-- `branch` (optional) If set, it will only notify on the given branch
-
+- `service_key` (required) Service key (see https://v2.developer.pagerduty.com/docs/trigger-events).
+- `url` (optional) URL to which notifications will be sent. The default value is `https://events.pagerduty.com/generic/2010-04-15/create_event.json`
+- `notify_on` (optional) If set to `failed` (which is the default) then a notification is sent only if the pipeline has failed.
+              If set to `all` (or any other value) then a notification is sent both when the pipeline succeeds and fails.
+- `branch` (optional) If set then a notification will only be sent for runs on the given branch
+- `client` (optional) Specifies the `client` field of the notification. This is defined as the name of the monitoring client that is triggering this event. 
+- `client_url` (optional) Specifies the `client_url` field of the notification. This is defined as the URL of the monitoring client that is triggering this event. 
 
 # Example
 
 ```yaml
 build:
-    after-steps:
-        - slack-notifier:
-            url: $SLACK_URL
-            channel: notifications
-            username: myamazingbotname
-            branch: master
+  ...
+  after-steps:
+    - nigeldeakin/pagerduty-notifier@1.0.18:
+        service_key: $PAGERDUTY_SERVICE_KEY
+        branch: master   
 ```
-
-The `url` parameter is the [slack webhook](https://api.slack.com/incoming-webhooks) that wercker should post to.
-You can create an *incoming webhook* on your slack integration page.
-This url is then exposed as an environment variable (in this case
-`$SLACK_URL`) that you create through the wercker web interface as *deploy pipeline variable*.
-
-# License
-
-The MIT License (MIT)
 
 # Changelog
 
-## 1.2.0
-
-- added `branch` option
-
-## 1.1.0
-
-- `channel` is now optional (wercker/step-slack#5)
-
-## 1.0.0
+## 1.0.18
 
 - Initial release
 
-## Contributing to this repository 
-
-Oracle welcomes contributions to this repository from anyone.  Please see [CONTRIBUTING](CONTRIBUTING.md) for more information. 

@@ -10,6 +10,7 @@ properties:
 - name: notify_on
   type: string
   required: false
+  default: failed
 # URL to send the event to. 
 - name: url
   type: string
@@ -22,10 +23,6 @@ properties:
 - name: service_key
   type: string
   required: true
-# if set, description is prepended to the event message.
-- name: description
-  type: string
-  required: false
 - name: client
   type: string
   required: false

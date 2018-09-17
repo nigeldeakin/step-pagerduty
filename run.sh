@@ -1,4 +1,17 @@
 #!/bin/bash
+#   Copyright (c) 2018, Oracle and/or its affiliates.  All rights reserved.
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
 
 function fail() {
     echo "failed: ${1}" 
@@ -37,10 +50,6 @@ else
 fi
 
 export MESSAGE="$ACTION for $WERCKER_APPLICATION_NAME by $WERCKER_STARTED_BY has $WERCKER_RESULT on branch $WERCKER_GIT_BRANCH"
-
-if [ -n "$WERCKER_PAGERDUTY_NOTIFIER_DESCRIPTION" ]; then
-  export MESSAGE="$WERCKER_PAGERDUTY_NOTIFIER_DESCRIPTION. $MESSAGE"
-fi
 
 if [ "$WERCKER_RESULT" = "failed" ]; then
   export MESSAGE="$MESSAGE at step: '$WERCKER_FAILED_STEP_DISPLAY_NAME'"
@@ -92,6 +101,7 @@ if [ -n "$WERCKER_PAGERDUTY_NOTIFIER_BRANCH" ]; then
 fi
 
 # post the event to pagerduty
+echo "Sending event to pagerduty: $MESSAGE"
 STATUS=$(curl -d "$json" -s --output "$WERCKER_STEP_TEMP"/result.txt -w "%{http_code}" $WERCKER_PAGERDUTY_NOTIFIER_URL)
 
 if [ "$STATUS" = "400" ]; then
@@ -108,5 +118,3 @@ if [ "$STATUS" != "200" ]; then
   cat "$WERCKER_STEP_TEMP/result.txt"
   fail "Sending event to PagerDuty FAILED: Status returned is $STATUS"
 fi
-
-echo "Event sent to pagerduty"

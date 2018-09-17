@@ -13,7 +13,10 @@ It is intended to be used in an `after-step` and sends a notification of whether
 - `client` (optional) Specifies the `client` field of the notification. This is defined as the name of the monitoring client that is triggering this event. 
 - `client_url` (optional) Specifies the `client_url` field of the notification. This is defined as the URL of the monitoring client that is triggering this event. 
 
-Note that the `description` field of the notification is set automatically (see example below).
+Note that the `description` field of the notification is set automatically. For example:
+```
+Pipeline 'deploy' for myapp by nigeldeakin has failed on branch master at step: 'Do something'. See https://app.wercker.com/nigeldeakin/myapp/deploy/5b9fab2bc81a8a00066d8c1b.
+```
 
 # Example
 
@@ -24,11 +27,6 @@ build:
     - nigeldeakin/pagerduty-notifier@1.0.18:
         service_key: $PAGERDUTY_SERVICE_KEY 
         branch: master   
-```
-
-Typical failure message:
-```
-Pipeline 'deploy' for myapp by nigeldeakin has failed on branch master at step: 'Do something'. See https://app.wercker.com/nigeldeakin/myapp/deploy/5b9fab2bc81a8a00066d8c1b.
 ```
 
 # Changelog

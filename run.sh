@@ -43,7 +43,7 @@ if [ -n "$WERCKER_PAGERDUTY_NOTIFIER_DESCRIPTION" ]; then
 fi
 
 if [ "$WERCKER_RESULT" = "failed" ]; then
-  export MESSAGE="$MESSAGE at step: $WERCKER_FAILED_STEP_DISPLAY_NAME"
+  export MESSAGE="$MESSAGE at step: '$WERCKER_FAILED_STEP_DISPLAY_NAME'"
 fi
 
 export MESSAGE="$MESSAGE. See $ACTION_URL."
@@ -90,8 +90,6 @@ if [ -n "$WERCKER_PAGERDUTY_NOTIFIER_BRANCH" ]; then
         return 0
     fi
 fi
-
-echo $json
 
 # post the event to pagerduty
 STATUS=$(curl -d "$json" -s --output "$WERCKER_STEP_TEMP"/result.txt -w "%{http_code}" $WERCKER_PAGERDUTY_NOTIFIER_URL)

@@ -93,17 +93,20 @@ fi
 
 # post the event to pagerduty
 STATUS=$(curl -d "$json" -s --output "$WERCKER_STEP_TEMP"/result.txt -w "%{http_code}" $WERCKER_PAGERDUTY_NOTIFIER_URL)
-cat "$WERCKER_STEP_TEMP/result.txt"
 
 if [ "$STATUS" = "400" ]; then
+  cat "$WERCKER_STEP_TEMP/result.txt"
   fail "Sending event to PagerDuty FAILED: Invalid event"
 fi
 
 if [ "$STATUS" = "403" ]; then
+  cat "$WERCKER_STEP_TEMP/result.txt"
   fail "Sending event to PagerDuty FAILED: Rate limited."
 fi
 
 if [ "$STATUS" != "200" ]; then
+  cat "$WERCKER_STEP_TEMP/result.txt"
   fail "Sending event to PagerDuty FAILED: Status returned is $STATUS"
 fi
 
+echo "Event sent to pagerduty"

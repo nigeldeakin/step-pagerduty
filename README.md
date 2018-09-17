@@ -13,6 +13,8 @@ It is intended to be used in an `after-step` and sends a notification of whether
 - `client` (optional) Specifies the `client` field of the notification. This is defined as the name of the monitoring client that is triggering this event. 
 - `client_url` (optional) Specifies the `client_url` field of the notification. This is defined as the URL of the monitoring client that is triggering this event. 
 
+Note that the `description` field of the notification is set automatically (see example below).
+
 # Example
 
 ```yaml

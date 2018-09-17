@@ -20,13 +20,18 @@ build:
   ...
   after-steps:
     - nigeldeakin/pagerduty-notifier@1.0.18:
-        service_key: $PAGERDUTY_SERVICE_KEY
+        service_key: $PAGERDUTY_SERVICE_KEY 
         branch: master   
+```
+
+Typical failure message:
+```
+Pipeline 'deploy' for myapp by nigeldeakin has failed on branch master at step: 'Do something'. See https://app.wercker.com/nigeldeakin/myapp/deploy/5b9fab2bc81a8a00066d8c1b.
 ```
 
 # Changelog
 
-## 1.0.18
+## 1.0.19
 
 - Initial release
 

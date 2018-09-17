@@ -1,5 +1,5 @@
 name: pagerduty-notifier
-version: 1.0.14
+version: 5
 summary: Send an event to PagerDuty.
 tags:
   - notification

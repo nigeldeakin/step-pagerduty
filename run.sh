@@ -28,11 +28,11 @@ export WERCKER_PAGERDUTY_NOTIFIER_EVENT_TYPE="trigger"
 # check if this event is a build or deploy
 if [ -n "$DEPLOY" ]; then
   # its a deploy!
-  export ACTION="pipeline ($WERCKER_DEPLOYTARGET_NAME)"
+  export ACTION="Pipeline \"$WERCKER_DEPLOYTARGET_NAME\""
   export ACTION_URL=$WERCKER_DEPLOY_URL
 else
   # its a build!
-  export ACTION="build" # we can't find the actual pipeline name 
+  export ACTION="Build" # we can't find the actual pipeline name 
   export ACTION_URL=$WERCKER_BUILD_URL
 fi
 

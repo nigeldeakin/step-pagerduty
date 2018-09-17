@@ -1,6 +1,6 @@
 name: pagerduty-notifier
-version: 1.0.19
-summary: Send an event to PagerDuty.
+version: 1.1.0
+summary: Send an event notification to PagerDuty of whether the pipeline failed or (optionally) succeeded. It is intended to be used in an after-step.
 tags:
   - notification
   - webhook

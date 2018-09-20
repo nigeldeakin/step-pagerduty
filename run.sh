@@ -21,6 +21,11 @@ function fail() {
     exit 1
 }
 
+# check that curl is installed
+if ! type "curl" > /dev/null; then
+  fail "curl is not installed"
+fi
+
 # service_key is required
 if [ -z "$WERCKER_PAGERDUTY_NOTIFIER_SERVICE_KEY" ]; then
   fail "service_key is not set"

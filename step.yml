@@ -1,5 +1,5 @@
 name: pagerduty-notifier
-version: 1.1.0
+version: 1.1.1
 summary: Send an event notification to PagerDuty of whether the pipeline failed or (optionally) succeeded. It is intended to be used in an after-step.
 tags:
   - notification
@@ -7,7 +7,7 @@ tags:
   - pagerduty
 properties:
 # If set to failed, this step will only send an event if the pipeline failed.
-- name: notify_on
+- name: notify-on
   type: string
   required: false
   default: failed
@@ -20,13 +20,13 @@ properties:
 - name: branch
   type: string
   required: false
-- name: service_key
+- name: service-key
   type: string
   required: true
 - name: client
   type: string
   required: false
   default: pagerduty-notifier
-- name: client_url
+- name: client-url
   type: string
   required: false

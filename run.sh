@@ -42,11 +42,9 @@ export WERCKER_PAGERDUTY_NOTIFIER_EVENT_TYPE="trigger"
 if [ -n "$DEPLOY" ]; then
   # its a deploy!
   export ACTION="Pipeline '$WERCKER_DEPLOYTARGET_NAME'"
-  export ACTION_URL=$WERCKER_DEPLOY_URL
 else
   # its a build!
   export ACTION="Build" # we can't find the actual pipeline name 
-  export ACTION_URL=$WERCKER_BUILD_URL
 fi
 
 export MESSAGE="$ACTION for $WERCKER_APPLICATION_NAME by $WERCKER_STARTED_BY has $WERCKER_RESULT on branch $WERCKER_GIT_BRANCH"
@@ -55,7 +53,7 @@ if [ "$WERCKER_RESULT" = "failed" ]; then
   export MESSAGE="$MESSAGE at step: '$WERCKER_FAILED_STEP_DISPLAY_NAME'"
 fi
 
-export MESSAGE="$MESSAGE. See $ACTION_URL."
+export MESSAGE="$MESSAGE. See $WERCKER_RUN_URL."
 
 # construct the json
 json="{"

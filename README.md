@@ -9,13 +9,13 @@ PagerDuty is a registered trademark of PagerDuty, Inc in the United States.
 
 # Options
 
-- `service_key` (required) Service key required by PagerDuty.
+- `service-key` (required) Service key required by PagerDuty.
 - `url` (optional) URL to which notifications will be sent. The default value is `https://events.pagerduty.com/generic/2010-04-15/create_event.json`
-- `notify_on` (optional) If set to `failed` (which is the default) then a notification is sent only if the pipeline has failed.
+- `notify-on` (optional) If set to `failed` (which is the default) then a notification is sent only if the pipeline has failed.
               If set to `all` (or any other value) then a notification is sent both when the pipeline succeeds and fails.
 - `branch` (optional) If set then a notification will only be sent for runs on the given branch
 - `client` (optional) Specifies the `client` field of the notification. This is defined as the name of the monitoring client that is triggering this event. 
-- `client_url` (optional) Specifies the `client_url` field of the notification. This is defined as the URL of the monitoring client that is triggering this event. 
+- `client-url` (optional) Specifies the `client_url` field of the notification. This is defined as the URL of the monitoring client that is triggering this event. 
 
 Note that the `description` field of the notification is set automatically. For example:
 ```
@@ -29,13 +29,13 @@ build:
   ...
   after-steps:
     - nigeldeakin/pagerduty-notifier@1.0.18:
-        service_key: $PAGERDUTY_SERVICE_KEY 
+        service-key: $PAGERDUTY_SERVICE_KEY 
         branch: master   
 ```
 
 # Changelog
 
-## 1.1.0
+## 1.1.1
 
 - Initial release
 
